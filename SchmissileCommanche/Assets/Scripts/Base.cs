@@ -5,16 +5,27 @@ using UnityEngine;
 public class Base : MonoBehaviour {
 
   public float baseHealth;
-  public float remainingMissiles = 0;
+  private float remainingMissiles;
+  private float missileSpeed;
+  private float fireRate;
+  private float missileExplosionRadius;
+  private float missileExplosionSpeed;
 
   public GameObject missilePrefab;
-  public float missileSpeed;
-
-  public float fireRate;
   private float lastFire;
 
-	// Use this for initialization
-	void Start () {
+  public void Initialize(float baseHealth, float remainingMissiles, float missileExplosionRadius, float missileExplosionSpeed, float missileSpeed, float fireRate)
+  {
+    this.baseHealth = baseHealth;
+    this.remainingMissiles = remainingMissiles;
+    this.missileExplosionRadius = missileExplosionRadius;
+    this.missileExplosionSpeed = missileExplosionSpeed;
+    this.missileSpeed = missileSpeed;
+    this.fireRate = fireRate;
+  }
+
+  // Use this for initialization
+  void Start () {
 		
 	}
 	
@@ -36,8 +47,10 @@ public class Base : MonoBehaviour {
       transform.position,
       Quaternion.Euler(0f, 0f, rotation_z - 90));
 
+    Missile missileComponent = missile.GetComponent<Missile>();
+    missileComponent.Initialize(targetPos, missileExplosionRadius, missileExplosionSpeed);
+
     missile.GetComponent<Rigidbody2D>().velocity = difference * missileSpeed;
-    missile.GetComponent<Missile>().targetPosition = targetPos;
 
     lastFire = Time.time;
   }
@@ -50,5 +63,10 @@ public class Base : MonoBehaviour {
   public bool CanFire()
   {
     return (remainingMissiles > 0 && lastFire + fireRate < Time.time);
+  }
+
+  public bool IsAlive()
+  {
+    return baseHealth > 0;
   }
 }

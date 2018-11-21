@@ -5,18 +5,20 @@ using UnityEngine;
 public class BaseManager : MonoBehaviour {
 	public GameObject[] bases;
 
-	public float fireRate;
-
-  public float startingMissileCount;
+	public float BaseStartinghealth;
+	public float FireRate;
+  public float MissileCount;
+  public float MissileSpeed;
+  public float MissileExplosionRadius;
+  public float MissileExplosionSpeed;
 
   // Use this for initialization
   void Start () {
 		bases = GameObject.FindGameObjectsWithTag("Base");
 
     foreach (var baseObject in bases) {
-      Base baseObjectComponenet = baseObject.GetComponent<Base>();
-      baseObjectComponenet.remainingMissiles = startingMissileCount;
-      baseObjectComponenet.fireRate = fireRate;
+      Base baseObjectComponet = baseObject.GetComponent<Base>();
+      baseObjectComponet.Initialize(BaseStartinghealth, MissileCount, MissileExplosionRadius, MissileExplosionSpeed, MissileSpeed, FireRate);
     }
     Debug.Log("Finished initializing bases");
   }

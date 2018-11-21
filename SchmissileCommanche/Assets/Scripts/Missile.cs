@@ -8,6 +8,17 @@ public class Missile : MonoBehaviour {
   public Vector2 targetPosition;
   public Vector2 lastPosition;
 
+  public GameObject explosionPrefab;
+  public float explosionRadius;
+  public float explosionSpeed;
+
+  public void Initialize(Vector2 targetPosition, float explosionRadius, float explosionSpeed)
+  {
+    this.targetPosition = targetPosition;
+    this.explosionRadius = explosionRadius;
+    this.explosionSpeed = explosionSpeed;
+  }
+
   void Start(){
 		startingPos = transform.position;
     lastPosition = transform.position;
@@ -20,6 +31,14 @@ public class Missile : MonoBehaviour {
     //}
     Debug.Log(Vector2.Distance(transform.position, targetPosition));
     if (Vector2.Distance(transform.position, targetPosition) < .1) {
+      GameObject explosionObject = (GameObject)Instantiate(
+        explosionPrefab,
+        transform.position,
+        transform.rotation);
+
+      Explosion explosion = explosionObject.GetComponent<Explosion>();
+      explosion.Initialize(explosionRadius, explosionSpeed);
+
       Destroy(this.gameObject);
     }
     //lastPosition = transform.position;
