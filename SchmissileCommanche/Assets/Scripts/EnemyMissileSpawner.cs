@@ -19,10 +19,18 @@ public class EnemyMissileSpawner : MonoBehaviour {
 
   private bool missileBarrageActive;
   private float remainingMissiles;
-  
+
+  public GameObject baseManagerObject;
+  private BaseManager baseManager;
+
   // Use this for initialization
   void Start () {
-    StartMissileBarrage(StartingMissileCount);
+    baseManager = baseManagerObject.GetComponent<BaseManager>();
+    if (baseManager != null) {
+      StartMissileBarrage(StartingMissileCount);
+    } else {
+      Debug.Log("Base Manager was null in Enemy Missile Spawner");
+    }
   }
 	
 	// Update is called once per frame
@@ -30,16 +38,6 @@ public class EnemyMissileSpawner : MonoBehaviour {
     if (missileBarrageActive) {
       if (Time.time > nextfire) {
         FireAtRandomBase();
-      }
-
-      List<Base> basesToRemove = new List<Base>();
-      foreach (Base item in baseObjects) {
-        if (!item.IsAlive()) {
-          basesToRemove.Add(item);
-        }
-      }
-      foreach (var item in basesToRemove) {
-        baseObjects.Remove(item);
       }
     }
 	}
@@ -59,8 +57,12 @@ public class EnemyMissileSpawner : MonoBehaviour {
 
   void FireAtRandomBase()
   {
-    Base targetBase = baseObjects[Random.Range(0, baseObjects.Count)];
-
+    //Base targetBase = baseObjects[Random.Range(0, baseObjects.Count)];
+    GameObject targetBase = baseManager.GetRandomBase();
+    if (targetBase == null) {
+      Debug.Log("Base was returned null from base manager in GetRandomBase");
+      return;
+    }
     remainingMissiles--;
     Vector3 difference = targetBase.transform.position - transform.position;
     difference.Normalize();

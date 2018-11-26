@@ -29,18 +29,33 @@ public class Missile : MonoBehaviour {
     //if (Vector2.Distance(lastPosition, targetPosition) < Vector2.Distance(transform.position, targetPosition)) {
     //  Destroy(this.gameObject);
     //}
-    Debug.Log(Vector2.Distance(transform.position, targetPosition));
     if (Vector2.Distance(transform.position, targetPosition) < .1) {
-      GameObject explosionObject = (GameObject)Instantiate(
-        explosionPrefab,
-        transform.position,
-        transform.rotation);
-
-      Explosion explosion = explosionObject.GetComponent<Explosion>();
-      explosion.Initialize(explosionRadius, explosionSpeed);
-
-      Destroy(this.gameObject);
+      Explode();
     }
     //lastPosition = transform.position;
   }
+
+  public void Explode()
+  {
+    GameObject explosionObject = (GameObject)Instantiate(
+     explosionPrefab,
+     transform.position,
+     transform.rotation);
+
+    Explosion explosion = explosionObject.GetComponent<Explosion>();
+    explosion.Initialize(explosionRadius, explosionSpeed);
+
+    Destroy(this.gameObject);
+  }
+
+  private void OnTriggerEnter2D(Collider2D collision)
+  {
+    if (collision.gameObject.tag.Equals("Explosion")) {
+      Destroy(this.gameObject);
+    }
+  }
+  //private void O(Collision2D collision)
+  //{
+
+  //}
 }

@@ -164,11 +164,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4145076241383320, guid: 4e164b322e163d446bd338b680928bb6,
     type: 2}
   m_PrefabInternal: {fileID: 69112217}
---- !u!1 &69112219 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1399353392370540, guid: 4e164b322e163d446bd338b680928bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 69112217}
 --- !u!1 &195515936
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,16 +366,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4145076241383320, guid: 4e164b322e163d446bd338b680928bb6,
     type: 2}
   m_PrefabInternal: {fileID: 635889207}
---- !u!1 &635889209 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1399353392370540, guid: 4e164b322e163d446bd338b680928bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 635889207}
---- !u!1 &1077048344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1399353392370540, guid: 4e164b322e163d446bd338b680928bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1216244613}
 --- !u!4 &1077048345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4145076241383320, guid: 4e164b322e163d446bd338b680928bb6,
@@ -479,11 +464,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4145076241383320, guid: 4e164b322e163d446bd338b680928bb6,
     type: 2}
   m_PrefabInternal: {fileID: 1437359814}
---- !u!1 &1437359816 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1399353392370540, guid: 4e164b322e163d446bd338b680928bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1437359814}
 --- !u!1001 &1489110477
 Prefab:
   m_ObjectHideFlags: 0
@@ -523,6 +503,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114369401910130124, guid: 524de51c6545c814bb70eee61f43ee98,
+        type: 2}
+      propertyPath: baseManager
+      value: 
+      objectReference: {fileID: 2142336868}
+    - target: {fileID: 114369401910130124, guid: 524de51c6545c814bb70eee61f43ee98,
+        type: 2}
+      propertyPath: baseManagerObject
+      value: 
+      objectReference: {fileID: 2142336868}
+    - target: {fileID: 114369401910130124, guid: 524de51c6545c814bb70eee61f43ee98,
+        type: 2}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 1706253143463834, guid: 29abb298de744e841ad4453d2e372057,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 524de51c6545c814bb70eee61f43ee98, type: 2}
   m_IsPrefabAsset: 0
@@ -577,11 +573,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4145076241383320, guid: 4e164b322e163d446bd338b680928bb6,
     type: 2}
   m_PrefabInternal: {fileID: 1722992059}
---- !u!1 &1722992061 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1399353392370540, guid: 4e164b322e163d446bd338b680928bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1722992059}
 --- !u!1 &2142336868
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,12 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3271b1a2f43eb4ba544f97d7ba34e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bases:
-  - {fileID: 1077048344}
-  - {fileID: 1437359816}
-  - {fileID: 1722992061}
-  - {fileID: 635889209}
-  - {fileID: 69112219}
+  bases: []
   BaseStartinghealth: 15
   FireRate: 1
   MissileCount: 15

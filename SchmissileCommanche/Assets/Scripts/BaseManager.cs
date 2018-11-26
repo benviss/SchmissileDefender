@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BaseManager : MonoBehaviour {
 	public GameObject[] bases;
+	private List<Base> baseComponents = new List<Base>();
 
-	public float BaseStartinghealth;
+  public float BaseStartinghealth;
 	public float FireRate;
   public float MissileCount;
   public float MissileSpeed;
@@ -19,29 +20,48 @@ public class BaseManager : MonoBehaviour {
     foreach (var baseObject in bases) {
       Base baseObjectComponet = baseObject.GetComponent<Base>();
       baseObjectComponet.Initialize(BaseStartinghealth, MissileCount, MissileExplosionRadius, MissileExplosionSpeed, MissileSpeed, FireRate);
+      baseComponents.Add(baseObjectComponet);
     }
     Debug.Log("Finished initializing bases");
   }
 
   // Update is called once per frame
   void Update () {
-		if(Input.GetButtonDown("Fire1")){
+    List<Base> basesToRemove = new List<Base>();
+    //foreach (Base item in baseComponents) {
+    //  if (!item.IsAlive()) {
+    //    basesToRemove.Add(item);
+    //  }
+    //}
+    //foreach (var item in basesToRemove) {
+    //  baseComponents.Remove(item);
+    //}
+
+    if (Input.GetButtonDown("Fire1")){
 			SelectBaseToFire();
 		}
 	}
 
 	void SelectBaseToFire(){
-		GameObject currClosestBase = null;
+		Base currClosestBase = null;
 		Vector2 targetFirePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		foreach (GameObject curBase in bases){
+		foreach (Base curBase in baseComponents) {
+      if (curBase == null) {
+        continue;
+      }
 			if (currClosestBase == null || Vector2.Distance(targetFirePosition, curBase.transform.position) < Vector2.Distance(targetFirePosition, currClosestBase.transform.position))	{
-        if (curBase.GetComponent<Base>().CanFire()) {
+        if (curBase.CanFire()) {
           currClosestBase = curBase;
         }
       }
 		}
     if (currClosestBase != null) {
-      currClosestBase.GetComponent<Base>().Fire(targetFirePosition);
+      currClosestBase.Fire(targetFirePosition);
     }
+  }
+
+  public GameObject GetRandomBase()
+  {
+    return bases[Random.Range(0, bases.Length)];
   }
 }
