@@ -42,6 +42,7 @@ public class Missile : MonoBehaviour {
      transform.position,
      transform.rotation);
 
+    explosionObject.layer = this.gameObject.layer;
     Explosion explosion = explosionObject.GetComponent<Explosion>();
     explosion.Initialize(explosionRadius, explosionSpeed);
 
@@ -50,7 +51,7 @@ public class Missile : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    if (collision.gameObject.tag.Equals("Explosion")) {
+    if (collision.gameObject.layer != this.gameObject.layer) {
       Destroy(this.gameObject);
     }
   }

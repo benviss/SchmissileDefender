@@ -12,7 +12,10 @@ public class Base : MonoBehaviour {
   private float missileExplosionSpeed;
 
   public GameObject missilePrefab;
-  private float lastFire;
+  private float nextFire;
+
+  private Renderer mRenderer;
+  private float reloadAnimationTime;
 
   public void Initialize(float baseHealth, float remainingMissiles, float missileExplosionRadius, float missileExplosionSpeed, float missileSpeed, float fireRate)
   {
@@ -26,13 +29,19 @@ public class Base : MonoBehaviour {
 
   // Use this for initialization
   void Start () {
-		
+    mRenderer = GetComponent<Renderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+    if (nextFire > Time.time) {
+      mRenderer.material.color = Color.Lerp(Color.red, Color.green, reloadAnimationTime);
 
-	}
+      if (reloadAnimationTime < 1) {
+        reloadAnimationTime += Time.deltaTime / fireRate;
+      }
+    }
+  }
 
   public void Fire(Vector3 targetPos)
   {
@@ -47,22 +56,28 @@ public class Base : MonoBehaviour {
       transform.position,
       Quaternion.Euler(0f, 0f, rotation_z - 90));
 
+    missile.layer = this.gameObject.layer;
+
     Missile missileComponent = missile.GetComponent<Missile>();
     missileComponent.Initialize(targetPos, missileExplosionRadius, missileExplosionSpeed);
 
     missile.GetComponent<Rigidbody2D>().velocity = difference * missileSpeed;
 
-    lastFire = Time.time;
+    nextFire = Time.time + fireRate;
+    reloadAnimationTime = 0;
   }
 
   void Hit(float damage)
   {
     baseHealth -= damage;
+    if (baseHealth <= 0) {
+      Die();
+    }
   }
 
   public bool CanFire()
   {
-    return (remainingMissiles > 0 && lastFire + fireRate < Time.time);
+    return (remainingMissiles > 0 && nextFire < Time.time);
   }
 
   public bool IsAlive()
@@ -79,8 +94,13 @@ public class Base : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    if (collision.gameObject.tag.Equals("Explosion")) {
-      Destroy(this.gameObject);
+    if (collision.gameObject.layer != this.gameObject.layer) {
+      Hit(9001);
     }
+  }
+
+  private void Die()
+  {
+    mRenderer.material.color = Color.clear;
   }
 }

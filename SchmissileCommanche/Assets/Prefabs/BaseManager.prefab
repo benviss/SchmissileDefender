@@ -9,54 +9,52 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1166226127289074}
+  m_RootGameObject: {fileID: 1602689885188352}
   m_IsPrefabAsset: 1
---- !u!1 &1166226127289074
+--- !u!1 &1602689885188352
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4490835519404060}
-  - component: {fileID: 114369401910130124}
-  m_Layer: 9
-  m_Name: EnemyMissileSpawner
+  - component: {fileID: 4305571919229236}
+  - component: {fileID: 114403014424475170}
+  m_Layer: 8
+  m_Name: BaseManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4490835519404060
+--- !u!4 &4305571919229236
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1166226127289074}
+  m_GameObject: {fileID: 1602689885188352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114369401910130124
+--- !u!114 &114403014424475170
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1166226127289074}
+  m_GameObject: {fileID: 1602689885188352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833a063d441e85b46a32d4afcfbdaada, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c3271b1a2f43eb4ba544f97d7ba34e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingMissileCount: 20
-  MinFireRate: 0.5
-  MaxFireRate: 3
-  MissileSpeed: 2
-  MissileExplosionRadius: 2
-  MissileExplosionSpeed: 3
-  missilePrefab: {fileID: 1706253143463834, guid: 29abb298de744e841ad4453d2e372057,
-    type: 2}
-  baseManagerObject: {fileID: 0}
+  bases: []
+  BaseStartinghealth: 15
+  FireRate: 1
+  MissileCount: 15
+  MissileSpeed: 4
+  MissileExplosionRadius: 2.5
+  MissileExplosionSpeed: 2

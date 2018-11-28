@@ -74,6 +74,8 @@ public class EnemyMissileSpawner : MonoBehaviour {
       transform.position,
       Quaternion.Euler(0f, 0f, rotation_z - 90));
 
+    missile.layer = this.gameObject.layer;
+
     Missile missileComponent = missile.GetComponent<Missile>();
     missileComponent.Initialize(targetBase.transform.position, MissileExplosionRadius, MissileExplosionSpeed);
 

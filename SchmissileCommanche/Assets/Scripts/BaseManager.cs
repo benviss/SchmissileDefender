@@ -50,7 +50,7 @@ public class BaseManager : MonoBehaviour {
         continue;
       }
 			if (currClosestBase == null || Vector2.Distance(targetFirePosition, curBase.transform.position) < Vector2.Distance(targetFirePosition, currClosestBase.transform.position))	{
-        if (curBase.CanFire()) {
+        if (curBase.IsAlive() && curBase.CanFire()) {
           currClosestBase = curBase;
         }
       }
