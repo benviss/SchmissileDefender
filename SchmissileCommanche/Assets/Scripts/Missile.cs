@@ -40,7 +40,7 @@ public class Missile : MonoBehaviour {
     GameObject explosionObject = (GameObject)Instantiate(
      explosionPrefab,
      transform.position,
-     transform.rotation);
+     transform.rotation, this.transform.parent);
 
     explosionObject.layer = this.gameObject.layer;
     Explosion explosion = explosionObject.GetComponent<Explosion>();

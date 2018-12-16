@@ -8,43 +8,33 @@ public class BaseManager : MonoBehaviour {
 
   public float BaseStartinghealth;
 	public float FireRate;
-  public float MissileCount;
+  public int MissileCount;
   public float MissileSpeed;
   public float MissileExplosionRadius;
   public float MissileExplosionSpeed;
 
   // Use this for initialization
-  void Start () {
+  public void StartNewGame (int startingMissiles) {
+    bases = null;
 		bases = GameObject.FindGameObjectsWithTag("Base");
 
     foreach (var baseObject in bases) {
       Base baseObjectComponet = baseObject.GetComponent<Base>();
-      baseObjectComponet.Initialize(BaseStartinghealth, MissileCount, MissileExplosionRadius, MissileExplosionSpeed, MissileSpeed, FireRate);
+      baseObjectComponet.Initialize(BaseStartinghealth, MissileExplosionRadius, MissileExplosionSpeed, MissileSpeed, FireRate);
       baseComponents.Add(baseObjectComponet);
     }
     Debug.Log("Finished initializing bases");
+
+    DistributeNewMissiles(startingMissiles);
   }
 
   // Update is called once per frame
   void Update () {
-    List<Base> basesToRemove = new List<Base>();
-    //foreach (Base item in baseComponents) {
-    //  if (!item.IsAlive()) {
-    //    basesToRemove.Add(item);
-    //  }
-    //}
-    //foreach (var item in basesToRemove) {
-    //  baseComponents.Remove(item);
-    //}
 
-    if (Input.GetButtonDown("Fire1")){
-			SelectBaseToFire();
-		}
 	}
 
-	void SelectBaseToFire(){
+	public void SelectBaseToFire(Vector2 targetFirePosition)  {
 		Base currClosestBase = null;
-		Vector2 targetFirePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		foreach (Base curBase in baseComponents) {
       if (curBase == null) {
         continue;
@@ -60,8 +50,60 @@ public class BaseManager : MonoBehaviour {
     }
   }
 
-  public GameObject GetRandomBase()
+  public GameObject GetRandomAliveBase()
   {
-    return bases[Random.Range(0, bases.Length)];
+    List<int> baseComponentsKeys = new List<int>();
+    for (int i = 0; i < baseComponents.Count; i++) {
+      if (baseComponents[i].IsAlive()) {
+        baseComponentsKeys.Add(i);
+      }
+    }
+    if (baseComponentsKeys.Count > 0) {
+      return bases[baseComponentsKeys[Random.Range(0, baseComponentsKeys.Count)]];
+    }
+    else {
+      return null;
+    }
+  }
+
+  public bool AllBasesDead()
+  {
+    foreach (var item in baseComponents) {
+      if (item.IsAlive()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public void DistributeNewMissiles(int newMissiles)
+  {
+    int remainingMissilesToAdd = newMissiles;
+
+    List<int> baseComponentsKeys = new List<int>();
+    for (int i = 0; i < baseComponents.Count; i++) {
+      if (baseComponents[i].IsAlive()) {
+        baseComponentsKeys.Add(i);
+      }
+    }
+
+    int idx = 0;
+    while (remainingMissilesToAdd > 0) {
+      if (idx == baseComponentsKeys.Count) idx = 0;
+      baseComponents[baseComponentsKeys[idx]].AddMissiles(1);
+      remainingMissilesToAdd--;
+      idx++;
+    }
+  }
+
+  public void ResetBases()
+  {
+    foreach (GameObject item in bases) {
+      foreach (Transform baseChild in item.transform) {
+        Destroy(baseChild.gameObject);
+      }
+    }
+
+    baseComponents.Clear();
   }
 }

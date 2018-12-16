@@ -5,7 +5,7 @@ using UnityEngine;
 public class Base : MonoBehaviour {
 
   public float baseHealth;
-  private float remainingMissiles;
+  public int remainingMissiles;
   private float missileSpeed;
   private float fireRate;
   private float missileExplosionRadius;
@@ -17,30 +17,39 @@ public class Base : MonoBehaviour {
   private Renderer mRenderer;
   private float reloadAnimationTime;
 
-  public void Initialize(float baseHealth, float remainingMissiles, float missileExplosionRadius, float missileExplosionSpeed, float missileSpeed, float fireRate)
+  public void Initialize(float baseHealth, float missileExplosionRadius, float missileExplosionSpeed, float missileSpeed, float fireRate)
   {
+    if (mRenderer == null) {
+      mRenderer = GetComponent<SpriteRenderer>();
+    }
+    mRenderer.material.color = Color.green;
     this.baseHealth = baseHealth;
-    this.remainingMissiles = remainingMissiles;
     this.missileExplosionRadius = missileExplosionRadius;
     this.missileExplosionSpeed = missileExplosionSpeed;
     this.missileSpeed = missileSpeed;
     this.fireRate = fireRate;
   }
-
-  // Use this for initialization
-  void Start () {
-    mRenderer = GetComponent<Renderer>();
-	}
 	
 	// Update is called once per frame
 	void Update () {
-    if (nextFire > Time.time) {
+    if (nextFire > Time.time && remainingMissiles > 0) {
       mRenderer.material.color = Color.Lerp(Color.red, Color.green, reloadAnimationTime);
 
       if (reloadAnimationTime < 1) {
         reloadAnimationTime += Time.deltaTime / fireRate;
       }
     }
+  }
+
+  public void AddMissiles(int newMissiles)
+  {
+    remainingMissiles += newMissiles;
+    mRenderer.material.color = Color.green;
+  }
+
+  public bool CanFire()
+  {
+    return (remainingMissiles > 0 && nextFire < Time.time);
   }
 
   public void Fire(Vector3 targetPos)
@@ -54,7 +63,7 @@ public class Base : MonoBehaviour {
     GameObject missile = (GameObject)Instantiate(
       missilePrefab,
       transform.position,
-      Quaternion.Euler(0f, 0f, rotation_z - 90));
+      Quaternion.Euler(0f, 0f, rotation_z - 90), this.transform);
 
     missile.layer = this.gameObject.layer;
 
@@ -65,6 +74,10 @@ public class Base : MonoBehaviour {
 
     nextFire = Time.time + fireRate;
     reloadAnimationTime = 0;
+
+    if (remainingMissiles <= 0) {
+      mRenderer.material.color = Color.red;
+    }
   }
 
   void Hit(float damage)
@@ -75,22 +88,10 @@ public class Base : MonoBehaviour {
     }
   }
 
-  public bool CanFire()
-  {
-    return (remainingMissiles > 0 && nextFire < Time.time);
-  }
-
   public bool IsAlive()
   {
     return baseHealth > 0;
   }
-
-  //private void OnCollisionEnter2D(Collision2D collision)
-  //{
-  //  if (collision.gameObject.tag.Equals("Explosion")) {
-  //    Destroy(this.gameObject);
-  //  }
-  //}
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
