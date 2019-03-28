@@ -32,7 +32,7 @@ public class Base : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    if (nextFire > Time.time && remainingMissiles > 0) {
+    if (nextFire > Time.time && remainingMissiles > 0 && baseHealth > 0) {
       mRenderer.material.color = Color.Lerp(Color.red, Color.green, reloadAnimationTime);
 
       if (reloadAnimationTime < 1) {
