@@ -11,7 +11,7 @@ public class EnemyMissileSpawner : MonoBehaviour {
   public float cMaxFireRate;
 
   public float MissileSpeed;
-  public float MissileExplosionRadius;
+  public float MissileExplosionSize;
   public float MissileExplosionSpeed;
 
   public GameObject missilePrefab;
@@ -26,9 +26,9 @@ public class EnemyMissileSpawner : MonoBehaviour {
 
   private BaseManager baseManager;
 
-  public void Initialize(float missileExplosionRadius, float missileExplosionSpeed, float missileSpeed, float minFireRate, float maxFireRate, GameObject baseManagerObject)
+  public void Initialize(float missileExplosionSize, float missileExplosionSpeed, float missileSpeed, float minFireRate, float maxFireRate, GameObject baseManagerObject)
   {
-    this.MissileExplosionRadius = missileExplosionRadius;
+    this.MissileExplosionSize = missileExplosionSize;
     this.MissileExplosionSpeed = missileExplosionSpeed;
     this.MissileSpeed = missileSpeed;
     this.MinFireRate = minFireRate;
@@ -39,14 +39,15 @@ public class EnemyMissileSpawner : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-    if (missileBarrageActive) {
-      if (remainingMissiles <= 0) {
-        if (transform.childCount <= 0) {
-          missileBarrageActive = false;
-        }
-      } else if (Time.time > nextfire) {
-        FireAtRandomBase();
+    if (!missileBarrageActive) return;
+
+    if (remainingMissiles <= 0) {
+      //checks for active missiles, missile barrage is over when they are all destroyed
+      if (transform.childCount <= 0) {
+        missileBarrageActive = false;
       }
+    } else if (Time.time > nextfire) {
+      FireAtRandomBase();
     }
 	}
 
@@ -88,7 +89,7 @@ public class EnemyMissileSpawner : MonoBehaviour {
     Vector2 fireFromPosition = new Vector2(Random.Range(MinX, MaxX), transform.position.y);
 
     //calculate random position within explosion radius of target base
-    Vector2 targetPosition = new Vector2(Random.Range(targetBase.transform.position.x - MissileExplosionRadius, targetBase.transform.position.x + MissileExplosionRadius), targetBase.transform.position.y);
+    Vector2 targetPosition = new Vector2(Random.Range(targetBase.transform.position.x - (float)(MissileExplosionSize * .75), targetBase.transform.position.x + (float)(MissileExplosionSize * .75)), targetBase.transform.position.y);
 
     Vector3 difference = targetPosition - fireFromPosition;
     difference.Normalize();
@@ -107,7 +108,7 @@ public class EnemyMissileSpawner : MonoBehaviour {
     Missile missileComponent = missile.GetComponent<Missile>();
 
 
-    missileComponent.Initialize(targetPosition, MissileExplosionRadius, MissileExplosionSpeed);
+    missileComponent.Initialize(targetPosition, MissileExplosionSize, MissileExplosionSpeed);
 
     missile.GetComponent<Rigidbody2D>().velocity = difference * MissileSpeed;
 

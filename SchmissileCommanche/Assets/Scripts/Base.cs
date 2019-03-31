@@ -8,7 +8,7 @@ public class Base : MonoBehaviour {
   public int remainingMissiles;
   private float missileSpeed;
   private float fireRate;
-  private float missileExplosionRadius;
+  private float missileExplosionSize;
   private float missileExplosionSpeed;
 
   public GameObject missilePrefab;
@@ -17,14 +17,14 @@ public class Base : MonoBehaviour {
   private Renderer mRenderer;
   private float reloadAnimationTime;
 
-  public void Initialize(float baseHealth, float missileExplosionRadius, float missileExplosionSpeed, float missileSpeed, float fireRate)
+  public void Initialize(float baseHealth, float missileExplosionSize, float missileExplosionSpeed, float missileSpeed, float fireRate)
   {
     if (mRenderer == null) {
       mRenderer = GetComponent<SpriteRenderer>();
     }
     mRenderer.material.color = Color.green;
     this.baseHealth = baseHealth;
-    this.missileExplosionRadius = missileExplosionRadius;
+    this.missileExplosionSize = missileExplosionSize;
     this.missileExplosionSpeed = missileExplosionSpeed;
     this.missileSpeed = missileSpeed;
     this.fireRate = fireRate;
@@ -68,7 +68,7 @@ public class Base : MonoBehaviour {
     missile.layer = this.gameObject.layer;
 
     Missile missileComponent = missile.GetComponent<Missile>();
-    missileComponent.Initialize(targetPos, missileExplosionRadius, missileExplosionSpeed);
+    missileComponent.Initialize(targetPos, missileExplosionSize, missileExplosionSpeed);
 
     missile.GetComponent<Rigidbody2D>().velocity = difference * missileSpeed;
 

@@ -10,7 +10,7 @@ public class BaseManager : MonoBehaviour {
 	public float FireRate;
   public int MissileCount;
   public float MissileSpeed;
-  public float MissileExplosionRadius;
+  public float MissileExplosionSize;
   public float MissileExplosionSpeed;
 
   // Use this for initialization
@@ -20,7 +20,7 @@ public class BaseManager : MonoBehaviour {
 
     foreach (var baseObject in bases) {
       Base baseObjectComponet = baseObject.GetComponent<Base>();
-      baseObjectComponet.Initialize(BaseStartinghealth, MissileExplosionRadius, MissileExplosionSpeed, MissileSpeed, FireRate);
+      baseObjectComponet.Initialize(BaseStartinghealth, MissileExplosionSize, MissileExplosionSpeed, MissileSpeed, FireRate);
       baseComponents.Add(baseObjectComponet);
     }
     Debug.Log("Finished initializing bases");

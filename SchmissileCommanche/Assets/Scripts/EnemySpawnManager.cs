@@ -11,7 +11,7 @@ public class EnemySpawnManager : MonoBehaviour {
   public float MaxFireRate;
 
   public float MissileSpeed;
-  public float MissileExplosionRadius;
+  public float MissileExplosionSize;
   public float MissileExplosionSpeed;
 
   public GameObject baseManagerObject;
@@ -22,7 +22,7 @@ public class EnemySpawnManager : MonoBehaviour {
 
     foreach (var enemySpawnerObject in enemySpawners) {
       EnemyMissileSpawner enemySpawnerObjectComponet = enemySpawnerObject.GetComponent<EnemyMissileSpawner>();
-      enemySpawnerObjectComponet.Initialize(MissileExplosionRadius, MissileExplosionSpeed, MissileSpeed, MinFireRate, MaxFireRate, baseManagerObject);
+      enemySpawnerObjectComponet.Initialize(MissileExplosionSize, MissileExplosionSpeed, MissileSpeed, MinFireRate, MaxFireRate, baseManagerObject);
       enemySpawnerComponents.Add(enemySpawnerObjectComponet);
     }
     Debug.Log("Finished initializing EnemySpawners");

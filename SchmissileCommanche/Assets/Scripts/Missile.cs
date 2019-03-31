@@ -9,13 +9,13 @@ public class Missile : MonoBehaviour {
   public Vector2 lastPosition;
 
   public GameObject explosionPrefab;
-  public float explosionRadius;
+  public float explosionSize;
   public float explosionSpeed;
 
-  public void Initialize(Vector2 targetPosition, float explosionRadius, float explosionSpeed)
+  public void Initialize(Vector2 targetPosition, float explosionSize, float explosionSpeed)
   {
     this.targetPosition = targetPosition;
-    this.explosionRadius = explosionRadius;
+    this.explosionSize = explosionSize;
     this.explosionSpeed = explosionSpeed;
   }
 
@@ -44,7 +44,7 @@ public class Missile : MonoBehaviour {
 
     explosionObject.layer = this.gameObject.layer;
     Explosion explosion = explosionObject.GetComponent<Explosion>();
-    explosion.Initialize(explosionRadius, explosionSpeed);
+    explosion.Initialize(explosionSize, explosionSpeed);
 
     Destroy(this.gameObject);
   }
@@ -52,7 +52,7 @@ public class Missile : MonoBehaviour {
   private void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.gameObject.layer != this.gameObject.layer) {
-      Destroy(this.gameObject);
+      Explode();
     }
   }
   //private void O(Collision2D collision)
