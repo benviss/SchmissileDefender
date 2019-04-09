@@ -64,6 +64,9 @@ public class GameplayManager : MonoBehaviour {
     baseManagerObject.GetComponent<BaseManager>().ResetBases();
     enemyManagerObject.GetComponent<EnemySpawnManager>().ResetEnemies();
 
+    RoundNumber = 1;
+    BaseMissileModifier = 5;
+    gameOverPanel.SetActive(false);
     NewGame();
   }
 
