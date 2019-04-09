@@ -32,6 +32,7 @@ public class Base : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+    //color animation can be improved
     if (nextFire > Time.time && remainingMissiles > 0 && baseHealth > 0) {
       mRenderer.material.color = Color.Lerp(Color.red, Color.green, reloadAnimationTime);
 
@@ -52,6 +53,7 @@ public class Base : MonoBehaviour {
     return (remainingMissiles > 0 && nextFire < Time.time);
   }
 
+  //Need to implement object pooling
   public void Fire(Vector3 targetPos)
   {
     remainingMissiles--;
@@ -96,7 +98,7 @@ public class Base : MonoBehaviour {
   private void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.gameObject.layer != this.gameObject.layer) {
-      Hit(9001);
+      Hit(9001);//IT'S OVER 9000!!!!
     }
   }
 

@@ -26,13 +26,9 @@ public class Missile : MonoBehaviour {
 
   private void Update()
   {
-    //if (Vector2.Distance(lastPosition, targetPosition) < Vector2.Distance(transform.position, targetPosition)) {
-    //  Destroy(this.gameObject);
-    //}
     if (Vector2.Distance(transform.position, targetPosition) < .1) {
       Explode();
     }
-    //lastPosition = transform.position;
   }
 
   public void Explode()
@@ -55,8 +51,4 @@ public class Missile : MonoBehaviour {
       Explode();
     }
   }
-  //private void O(Collision2D collision)
-  //{
-
-  //}
 }

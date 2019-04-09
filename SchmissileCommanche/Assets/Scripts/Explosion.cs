@@ -28,8 +28,6 @@ public class Explosion : MonoBehaviour {
     transform.localScale = new Vector2(0,0);
     mSpriteRenderer = this.GetComponent<SpriteRenderer>();
     mSpriteRenderer.color = new Color(colorR / 255f, Random.Range(minColorG, maxColorG) / 255f, colorB / 255f);
-
-
   }
 
   // Update is called once per frame

@@ -54,5 +54,8 @@ public class EnemySpawnManager : MonoBehaviour {
     foreach (EnemyMissileSpawner item in enemySpawnerComponents) {
       item.StartMissileBarrage(missileCount, roundNumber);
     }
+
+    //based on round number, create new enemy missile spawners  
+      //one may move horizontally over top of screen and fire missiles untill offscreen or destroyed.
   }
 }

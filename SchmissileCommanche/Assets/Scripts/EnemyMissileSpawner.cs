@@ -53,7 +53,6 @@ public class EnemyMissileSpawner : MonoBehaviour {
 
   public void StartMissileBarrage(int missileCount, float modifier)
   {
-    float modifiedMissileSpeed = (modifier > 1) ? MissileSpeed * (1 + (modifier / 100)): MissileSpeed;
     cMinFireRate = MinFireRate;
     cMaxFireRate = MaxFireRate;
     for (int i = 0; i < modifier; i++) {
@@ -68,9 +67,9 @@ public class EnemyMissileSpawner : MonoBehaviour {
     missileBarrageActive = true;
   }
 
+  //Plan to change. Should chunk out fire mechanics into Fire()
   void FireAtRandomBase()
   {
-    //Base targetBase = baseObjects[Random.Range(0, baseObjects.Count)];
     GameObject targetBase = baseManager.GetRandomAliveBase();
     if (targetBase == null) {
       if (baseManager.AllBasesDead()) {

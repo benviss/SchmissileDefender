@@ -28,11 +28,7 @@ public class BaseManager : MonoBehaviour {
     DistributeNewMissiles(startingMissiles);
   }
 
-  // Update is called once per frame
-  void Update () {
-
-	}
-
+  //Picks the base that is closest to target fire position that can fire
 	public void SelectBaseToFire(Vector2 targetFirePosition)  {
 		Base currClosestBase = null;
 		foreach (Base curBase in baseComponents) {
