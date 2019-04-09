@@ -188,6 +188,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6238689992370638823, guid: fc8c98b7ed210f24abdf5f08488067cb,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3115303281246904157, guid: fc8c98b7ed210f24abdf5f08488067cb,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -327,11 +332,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Intro Panel Text
-      objectReference: {fileID: 0}
-    - target: {fileID: 6238689992370638823, guid: fc8c98b7ed210f24abdf5f08488067cb,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas 1
       objectReference: {fileID: 0}
     - target: {fileID: 6164946653971885227, guid: fc8c98b7ed210f24abdf5f08488067cb,
         type: 3}
@@ -718,7 +718,7 @@ Transform:
   m_GameObject: {fileID: 1133118744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.019, y: 1.47, z: 0.53}
-  m_LocalScale: {x: 1.7695296, y: 1.4525999, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.4525999, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -857,12 +857,12 @@ PrefabInstance:
     - target: {fileID: 114929491986673482, guid: b9830ec9dd8c97b4cba430d7051dc77f,
         type: 3}
       propertyPath: MaxX
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 114929491986673482, guid: b9830ec9dd8c97b4cba430d7051dc77f,
         type: 3}
       propertyPath: MinX
-      value: -13
+      value: -12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9830ec9dd8c97b4cba430d7051dc77f, type: 3}
