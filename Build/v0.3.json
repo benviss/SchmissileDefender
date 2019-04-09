@@ -1,9 +1,9 @@
 {
 "companyName": "DefaultCompany",
 "productName": "SchmissileDefender",
-"dataUrl": "v0.2.data.unityweb",
-"wasmCodeUrl": "v0.2.wasm.code.unityweb",
-"wasmFrameworkUrl": "v0.2.wasm.framework.unityweb",
+"dataUrl": "v0.3.data.unityweb",
+"wasmCodeUrl": "v0.3.wasm.code.unityweb",
+"wasmFrameworkUrl": "v0.3.wasm.framework.unityweb",
 "TOTAL_MEMORY": 268435456,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
